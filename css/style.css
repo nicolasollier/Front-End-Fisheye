@@ -39,7 +39,7 @@ h1 {
 }
 
 .photographer_section article h2 {
-  margin: 10px 0;
+  margin: 12px 0;
   font-size: 36px;
   color: #D3573C;
 }
@@ -65,7 +65,7 @@ h1 {
   margin: 0 0 4px 0;
   font-weight: 400;
   font-style: normal;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 17px;
   text-align: center;
   color: #901C1C;
@@ -75,8 +75,7 @@ h1 {
   margin: 0 0 4px 0;
   font-style: normal;
   font-weight: 400;
-  font-size: 10px;
-  line-height: 13px;
+  font-size: 14px;
   text-align: center;
   color: #000000;
 }
@@ -85,8 +84,7 @@ h1 {
   margin: 0;
   font-style: normal;
   font-weight: 400;
-  font-size: 9px;
-  line-height: 12px;
+  font-size: 14px;
   text-align: center;
   color: #757575;
 }
