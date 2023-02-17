@@ -8,6 +8,7 @@ function photographerFactory(data) {
 
     const wrapperLink = document.createElement('a');
     wrapperLink.setAttribute('class', 'wrapperLink');
+    wrapperLink.setAttribute('role', 'link');
     wrapperLink.setAttribute('aria-label', `Voir la page de ${name}`);
     wrapperLink.setAttribute('href', `photographer.html?id=${data.id}`);
 
