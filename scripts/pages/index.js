@@ -1,28 +1,30 @@
-    async function getPhotographers() {
-        // Ceci est un exemple de données pour avoir un affichage de photographes de test dès le démarrage du projet, 
-        // mais il sera à remplacer avec une requête sur le fichier JSON en utilisant "fetch".
-        let photographers = []
+async function getPhotographers() {
+  let photographers = [];
 
-        // et bien retourner le tableau photographers seulement une fois récupéré
-        return ({
-            photographers: [...photographers, ...photographers, ...photographers]})
-    }
+  await fetch('data/photographers.json')
+    .then((response) => response.json())
+    .then((data) => {
+      photographers = data.photographers;
+    });
 
-    async function displayData(photographers) {
-        const photographersSection = document.querySelector(".photographer_section");
+  return ({ photographers: [...photographers] });
+}
 
-        photographers.forEach((photographer) => {
-            const photographerModel = photographerFactory(photographer);
-            const userCardDOM = photographerModel.getUserCardDOM();
-            photographersSection.appendChild(userCardDOM);
-        });
-    }
+async function displayData(photographers) {
+  const photographersSection = document.querySelector('.photographer_section');
 
-    async function init() {
-        // Récupère les datas des photographes
-        const { photographers } = await getPhotographers();
-        displayData(photographers);
-    }
-    
-    init();
-    
+  photographers.forEach((photographer) => {
+    // photoFactory is undefined here fix this later
+    // eslint-disable-next-line no-undef
+    const photographerModel = photographerFactory(photographer);
+    const userCardDOM = photographerModel.getUserCardDOM();
+    photographersSection.appendChild(userCardDOM);
+  });
+}
+
+async function init() {
+  const { photographers } = await getPhotographers();
+  await displayData(photographers);
+}
+
+init();
