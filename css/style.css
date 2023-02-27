@@ -88,3 +88,7 @@ h1 {
   text-align: center;
   color: #757575;
 }
+
+.photographer_section article .wrapperLink:focus {
+  outline: 2px solid red;
+}
