@@ -94,13 +94,12 @@ p {
 .photograph-medias {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   margin: 58px 100px;
 }
 
 .photograph-medias__media {
   width: 350px;
-  margin: 14px 0;
+  margin: 14px;
 }
 
 .photograph-medias__media__text-wrapper {
@@ -133,7 +132,7 @@ p {
   cursor: pointer;
 }
 
-.photograph-medias .photograph-medias__media__image {
+.photograph-medias .photograph-medias__media__image, .photograph-medias__media__video {
   width: 100%;
   min-width: 350px;
   height: 350px;

@@ -46,10 +46,21 @@ export class PhotographerMediasList {
       const mediaFigure = document.createElement("figure");
       mediaFigure.classList.add("photograph-medias__media");
 
-      const mediaImage = new Image();
-      mediaImage.src = `assets/photographers/${media.photographerId}/${media.image}`;
-      mediaImage.alt = media.alt;
-      mediaImage.classList.add("photograph-medias__media__image");
+      if (media.image) {
+        const mediaImage = new Image();
+        
+        mediaImage.src = `assets/photographers/${media.photographerId}/${media.image}`;
+        mediaImage.alt = media.alt;
+        mediaImage.classList.add("photograph-medias__media__image");
+        mediaFigure.appendChild(mediaImage);
+      } else if (media.video) {
+        const mediaVideo = document.createElement("video");
+
+        mediaVideo.src = `assets/photographers/${media.photographerId}/${media.video}`;
+        mediaVideo.alt = media.alt;
+        mediaVideo.classList.add("photograph-medias__media__video");
+        mediaFigure.appendChild(mediaVideo);
+      }
 
       const mediaTitle = document.createElement("figcaption");
       mediaTitle.textContent = media.title;
@@ -62,15 +73,13 @@ export class PhotographerMediasList {
       const mediaLikeButton = document.createElement("button");
       mediaLikeButton.classList.add("photograph-medias__media__like-button");
       mediaLikeButton.setAttribute("aria-label", "J'aime");
-      
+
       const textWrapper = document.createElement("div");
       textWrapper.classList.add("photograph-medias__media__text-wrapper");
 
       mediaLikes.appendChild(mediaLikeButton);
       textWrapper.appendChild(mediaTitle);
       textWrapper.appendChild(mediaLikes);
-
-      mediaFigure.appendChild(mediaImage);
       mediaFigure.appendChild(textWrapper);
 
       this.container.appendChild(mediaFigure);
