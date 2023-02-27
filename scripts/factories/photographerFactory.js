@@ -1,44 +1,53 @@
-export function photographerFactory(data) {
-  const { name, portrait } = data;
-  const picture = `assets/photographers/${portrait}`;
-
-  function getUserCardDOM() {
-    const article = document.createElement('article');
-
-    const wrapperLink = document.createElement('a');
-    wrapperLink.setAttribute('class', 'wrapperLink');
-    wrapperLink.setAttribute('role', 'link');
-    wrapperLink.setAttribute('aria-label', `Voir la page de ${name}`);
-    wrapperLink.setAttribute('href', `photographer.html?id=${data.id}`);
-
-    const img = document.createElement('img');
-    img.setAttribute('alt', `Image de profil de ${name}`);
-    img.setAttribute('src', picture);
-
-    const h2 = document.createElement('h2');
-    h2.textContent = name;
-
-    const location = document.createElement('h3');
-    location.textContent = `${data.city}, ${data.country}`;
-    location.setAttribute('class', 'location');
-
-    const tagline = document.createElement('p');
-    tagline.textContent = data.tagline;
-    tagline.setAttribute('class', 'tagline');
-
-    const price = document.createElement('p');
-    price.textContent = `${data.price}€/jour`;
-    price.setAttribute('class', 'price');
-
-    wrapperLink.appendChild(img);
-    wrapperLink.appendChild(h2);
-    article.appendChild(wrapperLink);
-    article.appendChild(location);
-    article.appendChild(tagline);
-    article.appendChild(price);
-
-    return (article);
+export class PhotographerHeader {
+  constructor(name, city, country, tagline, profilePictureSrc) {
+    this.container = document.querySelector(".photograph-header");
+    this.name = name;
+    this.city = city;
+    this.country = country;
+    this.tagline = tagline;
+    this.profilePictureSrc = profilePictureSrc;
   }
 
-  return { name, picture, getUserCardDOM };
+  render() {
+    const profilePicture = new Image();
+    profilePicture.src = this.profilePictureSrc;
+    profilePicture.alt = `Portrait de ${this.name}`;
+    profilePicture.classList.add("photograph-header__profile-picture");
+
+    const textWrapper = document.createElement("div");
+    textWrapper.classList.add("photograph-header__text-wrapper");
+
+    const name = document.createElement("h1");
+    name.textContent = `${this.name}`;
+
+    const location = document.createElement("h2");
+    location.textContent = `${this.city}, ${this.country}`;
+
+    const tagline = document.createElement("p");
+    tagline.textContent = this.tagline;
+
+    textWrapper.appendChild(name);
+    textWrapper.appendChild(location);
+    textWrapper.appendChild(tagline);
+
+    this.container.appendChild(textWrapper);
+    this.container.appendChild(profilePicture);
+  }
+}
+
+export class PhotographerPage {
+  constructor(photographer) {
+    this.photographer = photographer;
+    this.photographerHeader = new PhotographerHeader(
+      photographer.name,
+      photographer.city,
+      photographer.country,
+      photographer.tagline,
+      "assets/photographers/" + photographer.portrait
+    );
+  }
+
+  render() {
+    this.photographerHeader.render();
+  }
 }
