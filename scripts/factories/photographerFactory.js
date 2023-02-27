@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 export function photographerFactory(data) {
   const { name, portrait } = data;
   const picture = `assets/photographers/${portrait}`;
