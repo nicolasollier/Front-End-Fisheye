@@ -5,13 +5,12 @@ import { PhotographerPage } from "../factories/photographerFactory.js";
 let params = new URLSearchParams(window.location.search);
 let id = parseInt(params.get("id"));
 
-
 // Init photographer page
 async function init() {
-    const photographer = await getPhotographer(id);
-    const photographerPage = new PhotographerPage(photographer);
-    
-    photographerPage.render();
+  const photographer = await getPhotographer(id);
+  const photographerPage = new PhotographerPage(photographer);
+
+  photographerPage.render();
 }
 
 init();
