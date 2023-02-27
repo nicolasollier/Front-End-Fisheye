@@ -21,3 +21,15 @@ export async function getPhotographer(id) {
 
   return photographer;
 }
+
+export async function getPhotographerMedias(id) {
+  let medias = [];
+
+  await fetch("data/photographers.json")
+    .then((response) => response.json())
+    .then((data) => {
+      medias = data.media.filter((media) => media.photographerId == id);
+    });
+
+  return medias;
+}

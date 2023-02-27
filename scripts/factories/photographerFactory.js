@@ -35,8 +35,51 @@ export class PhotographerHeader {
   }
 }
 
+export class PhotographerMediasList {
+  constructor(medias) {
+    this.container = document.querySelector(".photograph-medias");
+    this.medias = medias;
+  }
+
+  render() {
+    this.medias.forEach((media) => {
+      const mediaFigure = document.createElement("figure");
+      mediaFigure.classList.add("photograph-medias__media");
+
+      const mediaImage = new Image();
+      mediaImage.src = `assets/photographers/${media.photographerId}/${media.image}`;
+      mediaImage.alt = media.alt;
+      mediaImage.classList.add("photograph-medias__media__image");
+
+      const mediaTitle = document.createElement("figcaption");
+      mediaTitle.textContent = media.title;
+      mediaTitle.classList.add("photograph-medias__media__title");
+
+      const mediaLikes = document.createElement("span");
+      mediaLikes.textContent = media.likes;
+      mediaLikes.classList.add("photograph-medias__media__likes");
+
+      const mediaLikeButton = document.createElement("button");
+      mediaLikeButton.classList.add("photograph-medias__media__like-button");
+      mediaLikeButton.setAttribute("aria-label", "J'aime");
+      
+      const textWrapper = document.createElement("div");
+      textWrapper.classList.add("photograph-medias__media__text-wrapper");
+
+      mediaLikes.appendChild(mediaLikeButton);
+      textWrapper.appendChild(mediaTitle);
+      textWrapper.appendChild(mediaLikes);
+
+      mediaFigure.appendChild(mediaImage);
+      mediaFigure.appendChild(textWrapper);
+
+      this.container.appendChild(mediaFigure);
+    });
+  }
+}
+
 export class PhotographerPage {
-  constructor(photographer) {
+  constructor(photographer, medias) {
     this.photographer = photographer;
     this.photographerHeader = new PhotographerHeader(
       photographer.name,
@@ -45,9 +88,12 @@ export class PhotographerPage {
       photographer.tagline,
       "assets/photographers/" + photographer.portrait
     );
+
+    this.photographerMediasList = new PhotographerMediasList(medias);
   }
 
   render() {
     this.photographerHeader.render();
+    this.photographerMediasList.render();
   }
 }
