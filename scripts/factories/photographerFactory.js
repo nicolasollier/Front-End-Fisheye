@@ -48,7 +48,7 @@ export class PhotographerMediasList {
 
       if (media.image) {
         const mediaImage = new Image();
-        
+
         mediaImage.src = `assets/photographers/${media.photographerId}/${media.image}`;
         mediaImage.alt = media.alt;
         mediaImage.classList.add("photograph-medias__media__image");
@@ -87,6 +87,31 @@ export class PhotographerMediasList {
   }
 }
 
+export class PhotographerInfos {
+  constructor(likes, price) {
+    this.container = document.querySelector(".photograph-infos");
+    this.likes = likes;
+    this.price = price;
+  }
+
+  render() {
+    const likes = document.createElement("p");
+    likes.textContent = `${this.likes}`;
+    const likesIcon = document.createElement("i");
+    likesIcon.classList.add("fas", "fa-heart");
+    likes.appendChild(likesIcon);
+
+    likes.classList.add("photograph-infos__likes");
+
+    const price = document.createElement("p");
+    price.textContent = `${this.price}€ / jour`;
+    price.classList.add("photograph-infos__price");
+
+    this.container.appendChild(likes);
+    this.container.appendChild(price);
+  }
+}
+
 export class PhotographerPage {
   constructor(photographer, medias) {
     this.photographer = photographer;
@@ -97,12 +122,13 @@ export class PhotographerPage {
       photographer.tagline,
       "assets/photographers/" + photographer.portrait
     );
-
+    this.photographerInfos = new PhotographerInfos(300000, photographer.price);
     this.photographerMediasList = new PhotographerMediasList(medias);
   }
 
   render() {
     this.photographerHeader.render();
+    this.photographerInfos.render();
     this.photographerMediasList.render();
   }
 }
