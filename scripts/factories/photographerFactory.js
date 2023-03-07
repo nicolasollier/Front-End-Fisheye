@@ -36,12 +36,30 @@ export class PhotographerHeader {
 }
 
 export class PhotographerMediasList {
-  constructor(medias) {
+  constructor(medias, activeFilter) {
     this.container = document.querySelector(".photograph-medias");
     this.medias = medias;
+    this.activeFilter = activeFilter;
   }
 
   render() {
+    console.log(this.activeFilter);
+    // Filter medias by active filter
+    if (this.activeFilter === "popular") {
+      this.medias.sort((a, b) => b.likes - a.likes);
+    } else if (this.activeFilter === "date") {
+      this.medias.sort((a, b) => b.date - a.date);
+    } else if (this.activeFilter === "title") {
+      this.medias.sort((a, b) => {
+        if (a.title < b.title) {
+          return -1;
+        }
+        if (a.title > b.title) {
+          return 1;
+        }
+        return 0;
+      });
+    }
     this.medias.forEach((media) => {
       const mediaFigure = document.createElement("figure");
       mediaFigure.classList.add("photograph-medias__media");
@@ -113,7 +131,10 @@ export class PhotographerInfos {
 }
 
 export class PhotographerPage {
-  constructor(photographer, medias) {
+  constructor(photographer, medias, activeFilter) {
+    // If activeFilter is not null, set it to activeFilter, else set it to an empty string
+    activeFilter ? this.activeFilter = activeFilter : "";
+
     this.photographer = photographer;
     this.photographerHeader = new PhotographerHeader(
       photographer.name,
@@ -129,7 +150,7 @@ export class PhotographerPage {
     });
     
     this.photographerInfos = new PhotographerInfos(totalLikes, photographer.price);
-    this.photographerMediasList = new PhotographerMediasList(medias);
+    this.photographerMediasList = new PhotographerMediasList(medias, this.activeFilter);
   }
 
   render() {

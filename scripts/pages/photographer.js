@@ -6,13 +6,23 @@ import { PhotographerPage } from "../factories/photographerFactory.js";
 let params = new URLSearchParams(window.location.search);
 let id = parseInt(params.get("id"));
 
+// Sort select button
+let sortSelect = document.querySelector(".sort__select");
+let activeFilter = "date";
+
 // Init photographer page
 async function init() {
   const photographer = await getPhotographer(id);
   const medias = await getPhotographerMedias(id);
-
-  const photographerPage = new PhotographerPage(photographer, medias);
+  
+  const photographerPage = new PhotographerPage(photographer, medias, activeFilter);
   photographerPage.render();
 }
 
 init();
+
+// Sort select button event listener
+sortSelect.addEventListener("change", (event) => {
+  activeFilter = event.target.value;
+  init();
+});
