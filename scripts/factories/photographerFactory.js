@@ -43,7 +43,7 @@ export class PhotographerMediasList {
   }
 
   render() {
-    console.log(this.activeFilter);
+    console.log("active filter:", this.activeFilter);
     // Filter medias by active filter
     if (this.activeFilter === "popular") {
       this.medias.sort((a, b) => b.likes - a.likes);
@@ -153,9 +153,14 @@ export class PhotographerPage {
     this.photographerMediasList = new PhotographerMediasList(medias, this.activeFilter);
   }
 
-  render() {
-    this.photographerHeader.render();
-    this.photographerInfos.render();
-    this.photographerMediasList.render();
+  render(initFromFilter) {
+    console.log("init from filter:", initFromFilter);
+    if(initFromFilter) {
+      this.photographerMediasList.render();
+    } else {
+      this.photographerHeader.render();
+      this.photographerInfos.render();
+      this.photographerMediasList.render();
+    }
   }
 }
