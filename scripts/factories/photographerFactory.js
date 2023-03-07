@@ -122,7 +122,13 @@ export class PhotographerPage {
       photographer.tagline,
       "assets/photographers/" + photographer.portrait
     );
-    this.photographerInfos = new PhotographerInfos(300000, photographer.price);
+
+    let totalLikes = 0;
+    medias.forEach((media) => {
+      totalLikes += media.likes;
+    });
+    
+    this.photographerInfos = new PhotographerInfos(totalLikes, photographer.price);
     this.photographerMediasList = new PhotographerMediasList(medias);
   }
 
