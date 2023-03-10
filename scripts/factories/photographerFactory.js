@@ -37,10 +37,9 @@ export class PhotographerHeader {
   }
   
   export class PhotographerMediasList {
-    constructor(medias, activeFilter) {
+    constructor(medias) {
       this.container = document.querySelector(".photograph-medias");
       this.medias = medias;
-      this.activeFilter = activeFilter;
     }
 
     // Filters getters

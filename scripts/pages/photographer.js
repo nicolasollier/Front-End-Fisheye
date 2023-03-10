@@ -2,10 +2,30 @@
 import { getPhotographer } from "./api.js";
 import { getPhotographerMedias } from "./api.js";
 
-//Factories
+// Factories
 import { PhotographerHeader } from "../factories/photographerFactory.js";
 import { PhotographerMediasList } from "../factories/photographerFactory.js";
 import { PhotographerInfos } from "../factories/photographerFactory.js";
+
+// Handle filters and changes
+const selectButton = document.querySelector(".sort__select");
+
+selectButton.addEventListener("change", async (e) => {
+  const medias = await getPhotographerMedias(id);
+  const activeFilter = e.target.value;
+  const photographerMediasList = new PhotographerMediasList(medias);
+  
+  if(activeFilter === "popular") {
+    photographerMediasList.sortByPopular;
+  } else if(activeFilter === "date") {
+    photographerMediasList.sortByDate;
+  } else if(activeFilter === "title") {
+    photographerMediasList.sortByTitle;
+  }
+
+  photographerMediasList.container.innerHTML = "";
+  photographerMediasList.render();
+});
 
 // Get photographer id from URL
 let params = new URLSearchParams(window.location.search);
@@ -17,7 +37,7 @@ async function init() {
   const medias = await getPhotographerMedias(id);
   let photographerTotalLikes = medias.reduce((acc, media) => (acc += media.likes), 0);
 
-  let photographerHeader = new PhotographerHeader(
+  const photographerHeader = new PhotographerHeader(
     photographer.name,  
     photographer.city,
     photographer.country,
@@ -25,8 +45,8 @@ async function init() {
     "assets/photographers/" + photographer.portrait
   );
 
-  let photographerMediasList = new PhotographerMediasList(medias, "popular");
-  let photographerInfos = new PhotographerInfos(photographerTotalLikes, photographer.price);
+  const photographerMediasList = new PhotographerMediasList(medias);
+  const photographerInfos = new PhotographerInfos(photographerTotalLikes, photographer.price);
 
   photographerHeader.render();
   photographerInfos.render();
