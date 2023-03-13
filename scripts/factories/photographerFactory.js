@@ -78,9 +78,30 @@ export class PhotographerMediasList {
       mediaTitle.textContent = media.title;
       mediaTitle.classList.add("photograph-medias__media__title");
 
-      const mediaLikes = document.createElement("span");
-      mediaLikes.textContent = media.likes;
+      const mediaLikesWrapper = document.createElement("span");
+      mediaLikesWrapper.classList.add(
+        "photograph-medias__media__likes-wrapper"
+      );
+
+      const mediaLikes = document.createElement("p");
+      mediaLikes.textContent = `${media.likes}`;
       mediaLikes.classList.add("photograph-medias__media__likes");
+
+      const mediaLikesButton = document.createElement("button");
+      mediaLikesButton.classList.add("photograph-medias__media__likes-button");
+      mediaLikesButton.setAttribute("aria-label", "J'aime");
+
+      mediaLikesButton.addEventListener("click", () => {
+        mediaLikes.textContent = `${media.likes + 1}`;
+        document.dispatchEvent(
+          new CustomEvent("incrementPhotographerLikes", {
+            // Pass the photographer id to the event for future implementations
+            detail: { photographerId: media.photographerId },
+          })
+        );
+        // Disable the button to prevent multiple clicks
+        mediaLikesButton.disabled = true;
+      });
 
       const mediaLikeButton = document.createElement("button");
       mediaLikeButton.classList.add("photograph-medias__media__like-button");
@@ -89,9 +110,10 @@ export class PhotographerMediasList {
       const textWrapper = document.createElement("div");
       textWrapper.classList.add("photograph-medias__media__text-wrapper");
 
-      mediaLikes.appendChild(mediaLikeButton);
+      mediaLikesWrapper.appendChild(mediaLikes);
+      mediaLikesWrapper.appendChild(mediaLikesButton);
       textWrapper.appendChild(mediaTitle);
-      textWrapper.appendChild(mediaLikes);
+      textWrapper.appendChild(mediaLikesWrapper);
       mediaFigure.appendChild(textWrapper);
 
       this.container.appendChild(mediaFigure);
@@ -107,19 +129,24 @@ export class PhotographerInfos {
   }
 
   render() {
+    const likesWrapper = document.createElement("div");
+    likesWrapper.classList.add("photograph-infos__likes-wrapper");
+
     const likes = document.createElement("p");
     likes.textContent = `${this.likes}`;
+    likes.classList.add("photograph-infos__likes");
+
     const likesIcon = document.createElement("i");
     likesIcon.classList.add("fas", "fa-heart");
-    likes.appendChild(likesIcon);
-
-    likes.classList.add("photograph-infos__likes");
 
     const price = document.createElement("p");
     price.textContent = `${this.price}€ / jour`;
     price.classList.add("photograph-infos__price");
 
-    this.container.appendChild(likes);
+    likesWrapper.appendChild(likes);
+    likesWrapper.appendChild(likesIcon);
+
+    this.container.appendChild(likesWrapper);
     this.container.appendChild(price);
   }
 }

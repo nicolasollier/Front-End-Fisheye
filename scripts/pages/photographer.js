@@ -7,6 +7,13 @@ import { PhotographerHeader } from "../factories/photographerFactory.js";
 import { PhotographerMediasList } from "../factories/photographerFactory.js";
 import { PhotographerInfos } from "../factories/photographerFactory.js";
 
+// Handle global likes update
+document.addEventListener("incrementPhotographerLikes", () => {
+  const photographerLikes = document.querySelector(".photograph-infos__likes");
+  const photographerLikesNumber = parseInt(photographerLikes.textContent);
+  photographerLikes.textContent = `${photographerLikesNumber + 1}`;
+});
+
 // Handle filters and changes
 const selectButton = document.querySelector(".sort__select");
 

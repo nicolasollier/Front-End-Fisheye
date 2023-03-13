@@ -109,6 +109,11 @@ p {
   justify-content: space-between;
 }
 
+.photograph-medias__media__text-wrapper .photograph-medias__media__likes-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .photograph-medias__media__text-wrapper .photograph-medias__media__title {
   font-size: 24px;
   color: #911c1c;
@@ -122,7 +127,12 @@ p {
   color: #911C1C;
 }
 
-.photograph-medias__media__text-wrapper .photograph-medias__media__like-button {
+.photograph-infos__likes-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.photograph-medias__media__text-wrapper .photograph-medias__media__likes-button {
   width: 38px;
   height: 38px;
   border: none;
