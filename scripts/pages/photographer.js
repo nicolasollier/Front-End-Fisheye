@@ -6,6 +6,7 @@ import { getPhotographerMedias } from "./api.js";
 import { PhotographerHeader } from "../factories/photographerFactory.js";
 import { PhotographerMediasList } from "../factories/photographerFactory.js";
 import { PhotographerInfos } from "../factories/photographerFactory.js";
+import { lightbox } from "../factories/lightbox.js";
 
 // Handle global likes update
 document.addEventListener("incrementPhotographerLikes", () => {
@@ -54,10 +55,12 @@ async function init() {
 
   const photographerMediasList = new PhotographerMediasList(medias);
   const photographerInfos = new PhotographerInfos(photographerTotalLikes, photographer.price);
+  const photographerlightbox = new lightbox();
 
   photographerHeader.render();
   photographerInfos.render();
   photographerMediasList.render();
+  photographerlightbox.render();
 }
 
 init();

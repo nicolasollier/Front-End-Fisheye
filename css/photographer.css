@@ -1,3 +1,6 @@
+/* import lightbox styles from './lightbox.css' */
+@import url("./lightbox.css");
+
 #contact_modal {
   display: none;
 }

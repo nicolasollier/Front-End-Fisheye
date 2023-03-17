@@ -61,6 +61,13 @@ export class PhotographerMediasList {
       if (media.image) {
         const mediaImage = new Image();
 
+        // Handle lightbox
+        mediaImage.addEventListener("click", () => {
+          const lightbox = document.querySelector(".lightbox");
+          lightbox.classList.remove("lightbox__hidden");
+          lightbox.classList.add("lightbox__active");
+        });
+
         mediaImage.src = `assets/photographers/${media.photographerId}/${media.image}`;
         mediaImage.alt = media.alt;
         mediaImage.classList.add("photograph-medias__media__image");
