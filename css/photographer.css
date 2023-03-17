@@ -93,14 +93,18 @@ p {
 
 .photograph-medias {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   margin: 58px 100px;
 }
 
+.photograph-medias::after {
+  content: "";
+  flex: auto;
+}
+
 .photograph-medias__media {
   width: 350px;
-  margin: 14px;
+  margin: 0 0 38px 38px;
 }
 
 .photograph-medias__media__text-wrapper {
