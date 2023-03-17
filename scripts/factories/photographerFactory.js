@@ -66,6 +66,8 @@ export class PhotographerMediasList {
           const lightbox = document.querySelector(".lightbox");
           lightbox.classList.remove("lightbox__hidden");
           lightbox.classList.add("lightbox__active");
+          // Disables scroll on body
+          document.body.style.overflow = "hidden";
         });
 
         mediaImage.src = `assets/photographers/${media.photographerId}/${media.image}`;

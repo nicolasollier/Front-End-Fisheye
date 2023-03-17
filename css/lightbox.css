@@ -1,5 +1,5 @@
 .lightbox {
-    display: flex;
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -13,6 +13,9 @@
 }
 .lightbox__hidden {
   display: none;
+}
+.lightbox__active {
+  display: flex;
 }
 
 .lightbox__image {
