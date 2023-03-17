@@ -66,6 +66,11 @@ export class PhotographerMediasList {
           const lightbox = document.querySelector(".lightbox");
           lightbox.classList.remove("lightbox__hidden");
           lightbox.classList.add("lightbox__active");
+
+          const lightboxImage = document.querySelector(".lightbox__image");
+          lightboxImage.src = `assets/photographers/${media.photographerId}/${media.image}`;
+          const lightboxTitleImage = document.querySelector(".lightbox__title-image");
+          lightboxTitleImage.textContent = media.title;
           // Disables scroll on body
           document.body.style.overflow = "hidden";
         });

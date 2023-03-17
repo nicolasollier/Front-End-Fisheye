@@ -1,5 +1,9 @@
-export class lightbox {
-    constructor() {}
+export class Lightbox {
+    constructor(medias, photographer) {
+        this.medias = medias;
+        this.photographer = photographer;
+    }
+
     render() {
         const lightbox = document.querySelector(".lightbox");
         
