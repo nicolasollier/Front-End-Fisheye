@@ -1,7 +1,6 @@
 export class Lightbox {
-  constructor(medias, photographer) {
-    this.medias = medias;
-    this.photographer = photographer;
+  constructor(media) {
+    this.media = media;
   }
 
   render() {
@@ -31,10 +30,19 @@ export class Lightbox {
     const lightboxCloseButton = document.querySelector(
       ".lightbox__close-button"
     );
+    const lightboxImage = document.querySelector(".lightbox__image");
 
     // Handle close button
     lightboxCloseButton.addEventListener("click", () => {
       lightbox.classList.remove("lightbox__active");
     });
+
+    // Handle lightbox image
+    lightboxImage.src = `assets/photographers/${this.media.photographerId}/${this.media.image}`;
+    lightboxImage.alt = this.media.alt;
+
+    // Handle lightbox title
+    const lightboxTitle = document.querySelector(".lightbox__title-image");
+    lightboxTitle.textContent = this.media.title;
   }
 }
