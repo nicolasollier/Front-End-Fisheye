@@ -63,7 +63,6 @@ export class PhotographerMediasList {
 
       if (media.image) {
         const mediaImage = new Image();
-
         // Handle lightbox
         mediaImage.addEventListener("click", () => {
           const lightbox = new Lightbox(media);
@@ -76,6 +75,11 @@ export class PhotographerMediasList {
         mediaFigure.appendChild(mediaImage);
       } else if (media.video) {
         const mediaVideo = document.createElement("video");
+        // Handle lightbox
+        mediaVideo.addEventListener("click", () => {
+          const lightbox = new Lightbox(media);
+          lightbox.render();
+        });
 
         mediaVideo.src = `assets/photographers/${media.photographerId}/${media.video}`;
         mediaVideo.alt = media.alt;
