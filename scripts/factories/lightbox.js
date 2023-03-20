@@ -1,12 +1,13 @@
 export class Lightbox {
-  constructor(media) {
-    this.media = media;
+  constructor(currentMedia, medias) {
+    this.currentMedia = currentMedia;
+    this.medias = medias;
   }
 
   render() {
     const lightbox = document.querySelector(".lightbox");
     // Render HTMl conditionally if image or video
-    if (this.media.image) {
+    if (this.currentMedia.image) {
         lightbox.innerHTML = `
         <button class="lightbox__previous-arrow">
             <i class="fa-solid fa-chevron-left"></i>
@@ -22,7 +23,7 @@ export class Lightbox {
             <i class="fa-solid fa-times"></i>
         </button>
         `;
-    } else if (this.media.video) {
+    } else if (this.currentMedia.video) {
         lightbox.innerHTML = `
             <button class="lightbox__previous-arrow">
                 <i class="fa-solid fa-chevron-left"></i>    
@@ -48,21 +49,21 @@ export class Lightbox {
       ".lightbox__close-button"
     );
 
-    if(this.media.image) {
+    if(this.currentMedia.image) {
         const lightboxImage = document.querySelector(".lightbox__image");
-        lightboxImage.src = `assets/photographers/${this.media.photographerId}/${this.media.image}`;
-        lightboxImage.alt = this.media.alt;
+        lightboxImage.src = `assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.image}`;
+        lightboxImage.alt = this.currentMedia.alt;
 
         const lightboxTitleImage = document.querySelector(".lightbox__title-image");
-        lightboxTitleImage.textContent = this.media.title;
+        lightboxTitleImage.textContent = this.currentMedia.title;
     } 
-    else if (this.media.video) {
+    else if (this.currentMedia.video) {
         const lightboxVideo = document.querySelector(".lightbox__video");
-        lightboxVideo.src = `assets/photographers/${this.media.photographerId}/${this.media.video}`;
-        lightboxVideo.alt = this.media.alt;
+        lightboxVideo.src = `assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.video}`;
+        lightboxVideo.alt = this.currentMedia.alt;
 
         const lightboxTitleVideo = document.querySelector(".lightbox__title-video");
-        lightboxTitleVideo.textContent = this.media.title;
+        lightboxTitleVideo.textContent = this.currentMedia.title;
     }
 
     // Handle close button
@@ -70,5 +71,28 @@ export class Lightbox {
       lightbox.classList.remove("lightbox__active");
     });
 
+    // Handle previous arrow
+    const lightboxPreviousArrow = document.querySelector(
+        ".lightbox__previous-arrow"
+    );
+    lightboxPreviousArrow.addEventListener("click", () => {
+        const currentIndex = this.medias.indexOf(this.currentMedia);
+        const previousMedia = this.medias[currentIndex - 1];
+        if (previousMedia) {
+            this.currentMedia = previousMedia;
+            this.render();
+        }
+    });
+
+    // Handle next arrow
+    const lightboxNextArrow = document.querySelector(".lightbox__next-arrow");
+    lightboxNextArrow.addEventListener("click", () => {
+        const currentIndex = this.medias.indexOf(this.currentMedia);
+        const nextMedia = this.medias[currentIndex + 1];
+        if (nextMedia) {
+            this.currentMedia = nextMedia;
+            this.render();
+        }
+    });
   }
 }

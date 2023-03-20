@@ -65,7 +65,7 @@ export class PhotographerMediasList {
         const mediaImage = new Image();
         // Handle lightbox
         mediaImage.addEventListener("click", () => {
-          const lightbox = new Lightbox(media);
+          const lightbox = new Lightbox(media, this.medias);
           lightbox.render();
         });
 
@@ -77,7 +77,7 @@ export class PhotographerMediasList {
         const mediaVideo = document.createElement("video");
         // Handle lightbox
         mediaVideo.addEventListener("click", () => {
-          const lightbox = new Lightbox(media);
+          const lightbox = new Lightbox(media, this.medias);
           lightbox.render();
         });
 
