@@ -4,9 +4,7 @@ export class Lightbox {
   }
 
   render() {
-    console.log(this.media)
     const lightbox = document.querySelector(".lightbox");
-
     // Render HTMl conditionally if image or video
     if (this.media.image) {
         lightbox.innerHTML = `
