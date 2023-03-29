@@ -84,3 +84,20 @@ textarea {
 form textarea {
   height: 160px;
 }
+
+form input {
+  padding-left: 16px;
+  font-size: 16px;
+  color: #000;
+} 
+
+.invalid {
+  border: 2px solid red;
+  color: red;
+}
+.invalid-feedback {
+  display: none;
+  color: red;
+  font-size: 14px;
+  margin: 12px 0 0 0;
+}
