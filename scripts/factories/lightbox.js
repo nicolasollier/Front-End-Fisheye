@@ -4,11 +4,27 @@ export class Lightbox {
     this.medias = medias;
   }
 
+  renderImage() {
+    const figure = document.querySelector(".lightbox__figure");
+    figure.querySelector(
+      "img"
+    ).src = `assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.image}`;
+    figure.querySelector('.lightbox__title-image').textContent = this.currentMedia.title;
+  }
+
+  renderVideo() {
+    const figure = document.querySelector(".lightbox__figure");
+    figure.querySelector(
+      "video"
+    ).src = `assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.video}`;
+    figure.querySelector('.lightbox__title-video').textContent = this.currentMedia.title;
+  }
+
   render() {
     const lightbox = document.querySelector(".lightbox");
     // Render HTMl conditionally if image or video
     if (this.currentMedia.image) {
-        lightbox.innerHTML = `
+      lightbox.innerHTML = `
         <button class="lightbox__previous-arrow">
             <i class="fa-solid fa-chevron-left"></i>
         </button>
@@ -24,7 +40,7 @@ export class Lightbox {
         </button>
         `;
     } else if (this.currentMedia.video) {
-        lightbox.innerHTML = `
+      lightbox.innerHTML = `
             <button class="lightbox__previous-arrow">
                 <i class="fa-solid fa-chevron-left"></i>    
             </button>
@@ -49,21 +65,24 @@ export class Lightbox {
       ".lightbox__close-button"
     );
 
-    if(this.currentMedia.image) {
-        const lightboxImage = document.querySelector(".lightbox__image");
-        lightboxImage.src = `assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.image}`;
-        lightboxImage.alt = this.currentMedia.alt;
+    if (this.currentMedia.image) {
+      const lightboxImage = document.querySelector(".lightbox__image");
+      lightboxImage.src = `assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.image}`;
+      lightboxImage.alt = this.currentMedia.alt;
 
-        const lightboxTitleImage = document.querySelector(".lightbox__title-image");
-        lightboxTitleImage.textContent = this.currentMedia.title;
-    } 
-    else if (this.currentMedia.video) {
-        const lightboxVideo = document.querySelector(".lightbox__video");
-        lightboxVideo.src = `assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.video}`;
-        lightboxVideo.alt = this.currentMedia.alt;
+      const lightboxTitleImage = document.querySelector(
+        ".lightbox__title-image"
+      );
+      lightboxTitleImage.textContent = this.currentMedia.title;
+    } else if (this.currentMedia.video) {
+      const lightboxVideo = document.querySelector(".lightbox__video");
+      lightboxVideo.src = `assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.video}`;
+      lightboxVideo.alt = this.currentMedia.alt;
 
-        const lightboxTitleVideo = document.querySelector(".lightbox__title-video");
-        lightboxTitleVideo.textContent = this.currentMedia.title;
+      const lightboxTitleVideo = document.querySelector(
+        ".lightbox__title-video"
+      );
+      lightboxTitleVideo.textContent = this.currentMedia.title;
     }
 
     // Handle close button
@@ -73,26 +92,26 @@ export class Lightbox {
 
     // Handle previous arrow
     const lightboxPreviousArrow = document.querySelector(
-        ".lightbox__previous-arrow"
+      ".lightbox__previous-arrow"
     );
     lightboxPreviousArrow.addEventListener("click", () => {
-        const currentIndex = this.medias.indexOf(this.currentMedia);
-        const previousMedia = this.medias[currentIndex - 1];
-        if (previousMedia) {
-            this.currentMedia = previousMedia;
-            this.render();
-        }
+      const currentIndex = this.medias.indexOf(this.currentMedia);
+      const previousMedia = this.medias[currentIndex - 1];
+      if (previousMedia) {
+        this.currentMedia = previousMedia;
+        this.currentMedia.image ? this.renderImage() : this.renderVideo();
+      }
     });
 
     // Handle next arrow
     const lightboxNextArrow = document.querySelector(".lightbox__next-arrow");
     lightboxNextArrow.addEventListener("click", () => {
-        const currentIndex = this.medias.indexOf(this.currentMedia);
-        const nextMedia = this.medias[currentIndex + 1];
-        if (nextMedia) {
-            this.currentMedia = nextMedia;
-            this.render();
-        }
+      const currentIndex = this.medias.indexOf(this.currentMedia);
+      const nextMedia = this.medias[currentIndex + 1];
+      if (nextMedia) {
+        this.currentMedia = nextMedia;
+        this.currentMedia.image ? this.renderImage() : this.renderVideo();
+      }
     });
   }
 }
