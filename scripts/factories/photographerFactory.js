@@ -61,6 +61,9 @@ export class PhotographerMediasList {
       const mediaFigure = document.createElement("figure");
       mediaFigure.classList.add("photograph-medias__media");
 
+      // Add the media an id to be able to target it in the lightbox
+      mediaFigure.setAttribute("id", media.id);
+
       if (media.image) {
         const mediaImage = new Image();
         // Handle lightbox
