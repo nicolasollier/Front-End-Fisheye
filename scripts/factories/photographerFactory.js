@@ -105,10 +105,14 @@ export class PhotographerMediasList {
       mediaLikesButton.setAttribute("aria-label", "J'aime");
 
       mediaLikesButton.addEventListener("click", () => {
-        mediaLikes.textContent = `${media.likes + 1}`;
+        let mediaIndex = this.medias.indexOf(media);
+        this.medias[mediaIndex].likes += 1;
+        mediaLikes.textContent = `${this.medias[mediaIndex].likes}`;
+        console.log(this.medias[mediaIndex]);
         document.dispatchEvent(
           new CustomEvent("incrementPhotographerLikes", {
             // Pass the photographer id to the event for future implementations
+            likes: this.medias[mediaIndex].likes,
             detail: { photographerId: media.photographerId },
           })
         );
