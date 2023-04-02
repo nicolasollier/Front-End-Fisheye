@@ -8,10 +8,15 @@ import { PhotographerMediasList } from "../factories/photographerFactory.js";
 import { PhotographerInfos } from "../factories/photographerFactory.js";
 
 // Handle global likes update
-document.addEventListener("incrementPhotographerLikes", () => {
+document.addEventListener("updatePhotographerLikes", (event) => {
   const photographerLikes = document.querySelector(".photograph-infos__likes");
   const photographerLikesNumber = parseInt(photographerLikes.textContent);
-  photographerLikes.textContent = `${photographerLikesNumber + 1}`;
+
+  if (event.detail.operationType === "increment") {
+    photographerLikes.textContent = photographerLikesNumber + 1;
+  } else if (event.detail.operationType === "decrement") {
+    photographerLikes.textContent = photographerLikesNumber - 1;
+  }
 });
 
 // Get photographer id from URL

@@ -109,18 +109,29 @@ export class PhotographerMediasList {
 
       mediaLikesButton.addEventListener("click", () => {
         let mediaIndex = this.medias.indexOf(media);
-        this.medias[mediaIndex].likes += 1;
+        let operationType = "";
+
+        mediaLikesButton.classList.contains(
+          "photograph-medias__media__likes-button--liked"
+        )
+          ? (this.medias[mediaIndex].likes += 1, (operationType = "increment"))
+          : (this.medias[mediaIndex].likes -= 1, (operationType = "decrement"));
+
         mediaLikes.textContent = `${this.medias[mediaIndex].likes}`;
-        console.log(this.medias[mediaIndex]);
+
         document.dispatchEvent(
-          new CustomEvent("incrementPhotographerLikes", {
-            // Pass the photographer id to the event for future implementations
-            likes: this.medias[mediaIndex].likes,
-            detail: { photographerId: media.photographerId },
+          new CustomEvent("updatePhotographerLikes", {
+            detail: {
+              likes: this.medias[mediaIndex].likes,
+              photographerId: this.medias[mediaIndex].photographerId,
+              operationType,
+            },
           })
         );
-        // Disable the button to prevent multiple clicks
-        mediaLikesButton.disabled = true;
+        // Toggle liked class on the button
+        mediaLikesButton.classList.toggle(
+          "photograph-medias__media__likes-button--liked"
+        );
       });
 
       const mediaLikeButton = document.createElement("button");
