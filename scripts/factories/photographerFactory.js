@@ -114,8 +114,8 @@ export class PhotographerMediasList {
         mediaLikesButton.classList.contains(
           "photograph-medias__media__likes-button--liked"
         )
-          ? (this.medias[mediaIndex].likes += 1, (operationType = "increment"))
-          : (this.medias[mediaIndex].likes -= 1, (operationType = "decrement"));
+          ? (this.medias[mediaIndex].likes -= 1, (operationType = "decrement"))
+          : (this.medias[mediaIndex].likes += 1, (operationType = "increment"));
 
         mediaLikes.textContent = `${this.medias[mediaIndex].likes}`;
 
