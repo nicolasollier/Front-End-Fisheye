@@ -14,26 +14,6 @@ document.addEventListener("incrementPhotographerLikes", () => {
   photographerLikes.textContent = `${photographerLikesNumber + 1}`;
 });
 
-// Handle filters and changes
-const selectButton = document.querySelector(".sort__select");
-
-selectButton.addEventListener("change", async (e) => {
-  const medias = await getPhotographerMedias(id);
-  const activeFilter = e.target.value;
-  const photographerMediasList = new PhotographerMediasList(medias);
-  
-  if(activeFilter === "popular") {
-    photographerMediasList.sortByPopular;
-  } else if(activeFilter === "date") {
-    photographerMediasList.sortByDate;
-  } else if(activeFilter === "title") {
-    photographerMediasList.sortByTitle;
-  }
-
-  photographerMediasList.container.innerHTML = "";
-  photographerMediasList.render();
-});
-
 // Get photographer id from URL
 let params = new URLSearchParams(window.location.search);
 let id = parseInt(params.get("id"));
@@ -42,10 +22,13 @@ let id = parseInt(params.get("id"));
 async function init() {
   const photographer = await getPhotographer(id);
   const medias = await getPhotographerMedias(id);
-  let photographerTotalLikes = medias.reduce((acc, media) => (acc += media.likes), 0);
+  let photographerTotalLikes = medias.reduce(
+    (acc, media) => (acc += media.likes),
+    0
+  );
 
   const photographerHeader = new PhotographerHeader(
-    photographer.name,  
+    photographer.name,
     photographer.city,
     photographer.country,
     photographer.tagline,
@@ -53,11 +36,32 @@ async function init() {
   );
 
   const photographerMediasList = new PhotographerMediasList(medias);
-  const photographerInfos = new PhotographerInfos(photographerTotalLikes, photographer.price);
+  const photographerInfos = new PhotographerInfos(
+    photographerTotalLikes,
+    photographer.price
+  );
 
   photographerHeader.render();
   photographerInfos.render();
   photographerMediasList.render();
+
+  // Handle filters and changes
+  const selectButton = document.querySelector(".sort__select");
+
+  selectButton.addEventListener("change", async (e) => {
+    const activeFilter = e.target.value;
+
+    if (activeFilter === "popular") {
+      photographerMediasList.sortByPopular;
+    } else if (activeFilter === "date") {
+      photographerMediasList.sortByDate;
+    } else if (activeFilter === "title") {
+      photographerMediasList.sortByTitle;
+    }
+
+    photographerMediasList.container.innerHTML = "";
+    photographerMediasList.render();
+  });
 }
 
 init();
