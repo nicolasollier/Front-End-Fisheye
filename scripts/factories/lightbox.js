@@ -38,7 +38,7 @@ export class Lightbox {
             <img class="lightbox__image"></img>
             <figcaption class="lightbox__title-image"></figcaption>
           </div>
-            <div class="lightbox__figure-media-type__video" style="display: ${this.currentMedia.video ? "flex" : "none"}">
+            <div class="lightbox__figure-media-type__video" style="display: ${this.currentMedia.video ? "block" : "none"}">
               <video class="lightbox__video" controls></video>
               <figcaption class="lightbox__title-video"></figcaption>
             </div>

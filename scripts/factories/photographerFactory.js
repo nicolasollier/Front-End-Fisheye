@@ -66,28 +66,55 @@ export class PhotographerMediasList {
 
       if (media.image) {
         const mediaImage = new Image();
+        const mediaButton = document.createElement("button");
+
         // Handle lightbox
         mediaImage.addEventListener("click", () => {
           const lightbox = new Lightbox(media, this.medias);
           lightbox.render();
         });
 
+        mediaButton.classList.add("unstyled");
         mediaImage.src = `assets/photographers/${media.photographerId}/${media.image}`;
         mediaImage.alt = media.alt;
         mediaImage.classList.add("photograph-medias__media__image");
-        mediaFigure.appendChild(mediaImage);
+
+        // Accessibility event listener
+        mediaButton.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            const lightbox = new Lightbox(media, this.medias);
+            lightbox.render();
+          }
+        });
+
+        mediaButton.appendChild(mediaImage);
+        mediaFigure.appendChild(mediaButton);
+
       } else if (media.video) {
         const mediaVideo = document.createElement("video");
+        const mediaButton = document.createElement("button");
+
         // Handle lightbox
         mediaVideo.addEventListener("click", () => {
           const lightbox = new Lightbox(media, this.medias);
           lightbox.render();
         });
 
+        mediaButton.classList.add("unstyled");
         mediaVideo.src = `assets/photographers/${media.photographerId}/${media.video}`;
         mediaVideo.alt = media.alt;
         mediaVideo.classList.add("photograph-medias__media__video");
-        mediaFigure.appendChild(mediaVideo);
+
+        // Accessibility event listener
+        mediaButton.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            const lightbox = new Lightbox(media, this.medias);
+            lightbox.render();
+          }
+        });
+
+        mediaButton.appendChild(mediaVideo);
+        mediaFigure.appendChild(mediaButton);
       }
 
       const mediaTitle = document.createElement("figcaption");
