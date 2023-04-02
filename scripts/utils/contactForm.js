@@ -25,6 +25,15 @@ openContactModalButton.addEventListener("click", async () => {
 
 closeContactModalButton.addEventListener("click", () => {
     modal.style.display = "none";
+    firstNameInput.classList.remove("invalid");
+    lastNameInput.classList.remove("invalid");
+    emailInput.classList.remove("invalid");
+
+    document.querySelector(".first-name__feedback").style.display = "none";
+    document.querySelector(".last-name__feedback").style.display = "none";
+    document.querySelector(".email__feedback").style.display = "none";
+    
+    resetForm();
 });
 
 // REGEX
@@ -90,6 +99,8 @@ emailInput.addEventListener("input", () => {
         return emailIsValid = false;
     }
 });
+// Listener onClose
+
 
 // Reset form
 const resetForm = () => {
