@@ -21,6 +21,7 @@ openContactModalButton.addEventListener("click", async () => {
     const modalName = document.querySelector(".contact__title");
     modalName.innerHTML = "";
     modalName.innerHTML = `Contactez-moi <br> <h2 class="contact__title__name">${photographer.name}</h2>`;
+    closeContactModalButton.focus();
 });
 
 closeContactModalButton.addEventListener("click", () => {
@@ -32,6 +33,7 @@ closeContactModalButton.addEventListener("click", () => {
     document.querySelector(".first-name__feedback").style.display = "none";
     document.querySelector(".last-name__feedback").style.display = "none";
     document.querySelector(".email__feedback").style.display = "none";
+    openContactModalButton.focus();
     
     resetForm();
 });
