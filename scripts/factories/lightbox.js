@@ -5,19 +5,17 @@ export class Lightbox {
   }
 
   renderImage() {
-
-  return `<div class="lightbox__figure-media-type__image">
-            <img class="lightbox__image" src="${`assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.image}`}"></img>
-            <figcaption class="lightbox__title-image"></figcaption>
-          </div>`
+    return `<div class="lightbox__figure-media-type__image">
+              <img class="lightbox__image" src="${`assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.image}`}"></img>
+              <figcaption class="lightbox__title-image"></figcaption>
+            </div>`
   }
 
   renderVideo() {
-
-  return `<div class="lightbox__figure-media-type__video">
-            <video src="${`assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.video}`}" class="lightbox__video" controls></video>
-            <figcaption class="lightbox__title-video"></figcaption>
-          </div>`
+    return `<div class="lightbox__figure-media-type__video">
+              <video src="${`assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.video}`}" class="lightbox__video" controls></video>
+              <figcaption class="lightbox__title-video"></figcaption>
+            </div>`
   }
 
   render() {
