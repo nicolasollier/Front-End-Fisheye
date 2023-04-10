@@ -108,5 +108,17 @@ export class Lightbox {
         }
       }
     });
+
+    //Handles focus on lightbox's context
+    //If currentMedia is not the last one, focus on next arrow
+    //If currentMedia is the last one, focus on close button
+    const currentIndex = this.medias.indexOf(this.currentMedia);
+    const nextMedia = this.medias[currentIndex + 1];
+    if (nextMedia) {
+      lightboxNextArrow.focus();
+    }
+    else {
+      lightboxCloseButton.focus();
+    }
   }
 }
