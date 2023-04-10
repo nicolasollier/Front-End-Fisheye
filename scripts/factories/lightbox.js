@@ -101,7 +101,13 @@ export class Lightbox {
       const nextMedia = this.medias[currentIndex + 1];
       if (nextMedia) {
         this.currentMedia = nextMedia;
-        this.currentMedia.image ? this.renderImage() : this.renderVideo();
+        // this.currentMedia.image ? this.renderImage() : this.renderVideo();
+        const figure = document.querySelector(".lightbox__figure");
+        if (this.currentMedia.image ) {
+          figure.innerHTML = this.renderImage()
+        } else {
+          figure.innerHTML = this.renderVideo()
+        }
       }
     });
   }
