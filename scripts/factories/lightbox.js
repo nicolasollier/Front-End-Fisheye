@@ -5,51 +5,42 @@ export class Lightbox {
   }
 
   renderImage() {
-    const figure = document.querySelector(".lightbox__figure");
-    figure.querySelector(
-      "img"
-    ).src = `assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.image}`;
-    figure.querySelector(".lightbox__title-image").textContent =
-      this.currentMedia.title;
-    figure.querySelector(".lightbox__figure-media-type__image").style.display = "block";
-    figure.querySelector(".lightbox__figure-media-type__video").style.display = "none";
+
+  return `<div class="lightbox__figure-media-type__image">
+            <img class="lightbox__image" src="${`assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.image}`}"></img>
+            <figcaption class="lightbox__title-image"></figcaption>
+          </div>`
   }
 
   renderVideo() {
-    const figure = document.querySelector(".lightbox__figure");
-    figure.querySelector(
-      "video"
-    ).src = `assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.video}`;
-    figure.querySelector(".lightbox__title-video").textContent =
-      this.currentMedia.title;
-    figure.querySelector(".lightbox__figure-media-type__image").style.display = "none";
-    figure.querySelector(".lightbox__figure-media-type__video").style.display = "block";
+
+  return `<div class="lightbox__figure-media-type__video">
+            <video src="${`assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.video}`}" class="lightbox__video" controls></video>
+            <figcaption class="lightbox__title-video"></figcaption>
+          </div>`
   }
 
   render() {
     const lightbox = document.querySelector(".lightbox");
     // Render HTMl conditionally if image or video
     lightbox.innerHTML = `
-        <button class="lightbox__previous-arrow">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <figure class="lightbox__figure">
-          <div class="lightbox__figure-media-type__image" style="display: ${this.currentMedia.image ? "block" : "none"}">
-            <img class="lightbox__image"></img>
-            <figcaption class="lightbox__title-image"></figcaption>
-          </div>
-            <div class="lightbox__figure-media-type__video" style="display: ${this.currentMedia.video ? "block" : "none"}">
-              <video class="lightbox__video" controls></video>
-              <figcaption class="lightbox__title-video"></figcaption>
-            </div>
-        </figure>
-        <button class="lightbox__next-arrow">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-        <button class="lightbox__close-button">
-            <i class="fa-solid fa-times"></i>
-        </button>
-        `;
+      <button class="lightbox__previous-arrow">
+          <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <figure class="lightbox__figure">
+      ${
+        this.currentMedia.image
+          ? this.renderImage()
+          : this.renderVideo()
+      }  
+      </figure>
+      <button class="lightbox__next-arrow">
+          <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      <button class="lightbox__close-button">
+          <i class="fa-solid fa-times"></i>
+      </button>
+    `;
 
     // Adds active class to lightbox
     lightbox.classList.add("lightbox__active");
@@ -93,7 +84,13 @@ export class Lightbox {
       const previousMedia = this.medias[currentIndex - 1];
       if (previousMedia) {
         this.currentMedia = previousMedia;
-        this.currentMedia.image ? this.renderImage() : this.renderVideo();
+        // this.currentMedia.image ? this.renderImage() : this.renderVideo();
+        const figure = document.querySelector(".lightbox__figure");
+        if (this.currentMedia.image ) {
+          figure.innerHTML = this.renderImage()
+        } else {
+          figure.innerHTML = this.renderVideo()
+        }
       }
     });
 
