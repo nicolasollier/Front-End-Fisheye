@@ -68,23 +68,14 @@ export class PhotographerMediasList {
         const mediaImage = new Image();
         const mediaButton = document.createElement("button");
 
-        // Handle lightbox
-        mediaImage.addEventListener("click", () => {
-          const lightbox = new Lightbox(media, this.medias);
-          lightbox.render();
-        });
-
         mediaButton.classList.add("unstyled");
         mediaImage.src = `assets/photographers/${media.photographerId}/${media.image}`;
         mediaImage.alt = media.alt;
         mediaImage.classList.add("photograph-medias__media__image");
 
-        // Accessibility event listener
-        mediaButton.addEventListener("keydown", (e) => {
-          if (e.key === "Enter") {
-            const lightbox = new Lightbox(media, this.medias);
-            lightbox.render();
-          }
+        mediaButton.addEventListener("click", () => {
+          const lightbox = new Lightbox(media, this.medias);
+          lightbox.render();
         });
 
         mediaButton.appendChild(mediaImage);
@@ -95,7 +86,7 @@ export class PhotographerMediasList {
         const mediaButton = document.createElement("button");
 
         // Handle lightbox
-        mediaVideo.addEventListener("click", () => {
+        mediaButton.addEventListener("click", () => {
           const lightbox = new Lightbox(media, this.medias);
           lightbox.render();
         });
@@ -104,14 +95,6 @@ export class PhotographerMediasList {
         mediaVideo.src = `assets/photographers/${media.photographerId}/${media.video}`;
         mediaVideo.alt = media.alt;
         mediaVideo.classList.add("photograph-medias__media__video");
-
-        // Accessibility event listener
-        mediaButton.addEventListener("keydown", (e) => {
-          if (e.key === "Enter") {
-            const lightbox = new Lightbox(media, this.medias);
-            lightbox.render();
-          }
-        });
 
         mediaButton.appendChild(mediaVideo);
         mediaFigure.appendChild(mediaButton);
