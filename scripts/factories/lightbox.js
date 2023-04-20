@@ -109,6 +109,47 @@ export class Lightbox {
       }
     });
 
+    // Handle keyboard events
+    document.addEventListener("keydown", (e) => {
+      let isLightboxOpen = lightbox.classList.contains("lightbox__active");
+      // Check if lightbox is open
+      if (isLightboxOpen) {
+        if (e.key === "Escape") {
+          console.log("escape");
+          lightbox.classList.remove("lightbox__active");
+        }
+
+        if (e.key === "ArrowLeft") {
+          console.log("left");
+          const currentIndex = this.medias.indexOf(this.currentMedia);
+          const previousMedia = this.medias[currentIndex - 1];
+          if (previousMedia) {
+            this.currentMedia = previousMedia;
+            const figure = document.querySelector(".lightbox__figure");
+            if (this.currentMedia.image ) {
+              figure.innerHTML = this.renderImage()
+            } else {
+              figure.innerHTML = this.renderVideo()
+            }
+          }
+        }
+        if (e.key === "ArrowRight") {
+          console.log("right");
+          const currentIndex = this.medias.indexOf(this.currentMedia);
+          const nextMedia = this.medias[currentIndex + 1];
+          if (nextMedia) {
+            this.currentMedia = nextMedia;
+            const figure = document.querySelector(".lightbox__figure");
+            if (this.currentMedia.image ) {
+              figure.innerHTML = this.renderImage()
+            } else {
+              figure.innerHTML = this.renderVideo()
+            }
+          }
+        }
+      }
+    });
+
     //Handles focus on lightbox's context
     //If currentMedia is not the last one, focus on next arrow
     //If currentMedia is the last one, focus on close button
