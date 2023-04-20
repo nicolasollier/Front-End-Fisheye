@@ -147,6 +147,22 @@ export class Lightbox {
       }
     });
 
+    // Disable tab navigation on <main></main> content when lightbox is open
+    const main = document.querySelector("main");
+    const mainChilds = main.querySelectorAll("*");
+    let isLightboxOpen = lightbox.classList.contains("lightbox__active");
+    if (isLightboxOpen) {
+      main.setAttribute("tabindex", "-1");
+      mainChilds.forEach((child) => {
+        child.setAttribute("tabindex", "-1");
+      });
+    } else {
+      main.removeAttribute("tabindex");
+      mainChilds.forEach((child) => {
+        child.removeAttribute("tabindex");
+      });
+    }
+
     //Handles focus on lightbox's context
     //If currentMedia is not the last one, focus on next arrow
     //If currentMedia is the last one, focus on close button
