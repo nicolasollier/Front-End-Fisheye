@@ -115,12 +115,10 @@ export class Lightbox {
       // Check if lightbox is open
       if (isLightboxOpen) {
         if (e.key === "Escape") {
-          console.log("escape");
           lightbox.classList.remove("lightbox__active");
         }
 
         if (e.key === "ArrowLeft") {
-          console.log("left");
           const currentIndex = this.medias.indexOf(this.currentMedia);
           const previousMedia = this.medias[currentIndex - 1];
           if (previousMedia) {
@@ -134,7 +132,6 @@ export class Lightbox {
           }
         }
         if (e.key === "ArrowRight") {
-          console.log("right");
           const currentIndex = this.medias.indexOf(this.currentMedia);
           const nextMedia = this.medias[currentIndex + 1];
           if (nextMedia) {
