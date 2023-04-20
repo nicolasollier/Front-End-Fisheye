@@ -39,6 +39,50 @@ export class PhotographerHeader {
   }
 }
 
+export class MediaFactory {
+  constructor(media, medias) {
+    this.media = media;
+    this.medias = medias;
+  }
+  
+  render() {
+    if(this.media.image) {
+      const mediaImage = new Image();
+      const mediaButton = document.createElement("button");
+
+      mediaButton.classList.add("unstyled");
+      mediaImage.src = `assets/photographers/${this.media.photographerId}/${this.media.image}`;
+      mediaImage.alt = this.media.alt;
+      mediaImage.classList.add("photograph-medias__media__image");
+
+      mediaButton.addEventListener("click", () => {
+        const lightbox = new Lightbox(this.media, this.medias);
+        lightbox.render();
+      });
+
+      mediaButton.appendChild(mediaImage);
+      return mediaButton;
+    }
+    else if(this.media.video) {
+      const mediaVideo = document.createElement("video");
+      const mediaButton = document.createElement("button");
+
+      mediaButton.classList.add("unstyled");
+      mediaVideo.src = `assets/photographers/${this.media.photographerId}/${this.media.video}`;
+      mediaVideo.alt = this.media.alt;
+      mediaVideo.classList.add("photograph-medias__media__video");
+
+      mediaButton.addEventListener("click", () => {
+        const lightbox = new Lightbox(this.media, this.medias);
+        lightbox.render();
+      });
+
+      mediaButton.appendChild(mediaVideo);
+      return mediaButton;
+    }
+  }
+}
+
 export class PhotographerMediasList {
   constructor(medias) {
     this.container = document.querySelector(".photograph-medias");
@@ -64,41 +108,8 @@ export class PhotographerMediasList {
       // Add the media an id to be able to target it in the lightbox
       mediaFigure.setAttribute("id", 'media-figure__' + media.id);
 
-      if (media.image) {
-        const mediaImage = new Image();
-        const mediaButton = document.createElement("button");
-
-        mediaButton.classList.add("unstyled");
-        mediaImage.src = `assets/photographers/${media.photographerId}/${media.image}`;
-        mediaImage.alt = media.alt;
-        mediaImage.classList.add("photograph-medias__media__image");
-
-        mediaButton.addEventListener("click", () => {
-          const lightbox = new Lightbox(media, this.medias);
-          lightbox.render();
-        });
-
-        mediaButton.appendChild(mediaImage);
-        mediaFigure.appendChild(mediaButton);
-
-      } else if (media.video) {
-        const mediaVideo = document.createElement("video");
-        const mediaButton = document.createElement("button");
-
-        // Handle lightbox
-        mediaButton.addEventListener("click", () => {
-          const lightbox = new Lightbox(media, this.medias);
-          lightbox.render();
-        });
-
-        mediaButton.classList.add("unstyled");
-        mediaVideo.src = `assets/photographers/${media.photographerId}/${media.video}`;
-        mediaVideo.alt = media.alt;
-        mediaVideo.classList.add("photograph-medias__media__video");
-
-        mediaButton.appendChild(mediaVideo);
-        mediaFigure.appendChild(mediaButton);
-      }
+      const generatedMedia = new MediaFactory(media, this.medias);
+      mediaFigure.appendChild(generatedMedia.render());
 
       const mediaTitle = document.createElement("figcaption");
       mediaTitle.textContent = media.title;
