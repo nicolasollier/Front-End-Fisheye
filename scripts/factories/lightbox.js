@@ -125,7 +125,6 @@ export class Lightbox {
         if (e.key === "Escape") {
           lightbox.classList.remove("lightbox__active");
         }
-
         if (e.key === "ArrowLeft") {
           this.getToPreviousMedia();
         }
