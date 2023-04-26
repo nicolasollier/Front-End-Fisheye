@@ -18,6 +18,36 @@ export class Lightbox {
             </div>`
   }
 
+  getToNextMedia() {
+    const currentIndex = this.medias.indexOf(this.currentMedia);
+    const nextMedia = this.medias[currentIndex + 1];
+    if (nextMedia) {
+      this.currentMedia = nextMedia;
+      // this.currentMedia.image ? this.renderImage() : this.renderVideo();
+      const figure = document.querySelector(".lightbox__figure");
+      if (this.currentMedia.image ) {
+        figure.innerHTML = this.renderImage()
+      } else {
+        figure.innerHTML = this.renderVideo()
+      }
+    }
+  }
+
+  getToPreviousMedia() {
+    const currentIndex = this.medias.indexOf(this.currentMedia);
+    const previousMedia = this.medias[currentIndex - 1];
+    if (previousMedia) {
+      this.currentMedia = previousMedia;
+      // this.currentMedia.image ? this.renderImage() : this.renderVideo();
+      const figure = document.querySelector(".lightbox__figure");
+      if (this.currentMedia.image ) {
+        figure.innerHTML = this.renderImage()
+      } else {
+        figure.innerHTML = this.renderVideo()
+      }
+    }
+  }
+
   render() {
     const lightbox = document.querySelector(".lightbox");
     // Render HTMl conditionally if image or video
@@ -78,35 +108,13 @@ export class Lightbox {
       ".lightbox__previous-arrow"
     );
     lightboxPreviousArrow.addEventListener("click", () => {
-      const currentIndex = this.medias.indexOf(this.currentMedia);
-      const previousMedia = this.medias[currentIndex - 1];
-      if (previousMedia) {
-        this.currentMedia = previousMedia;
-        // this.currentMedia.image ? this.renderImage() : this.renderVideo();
-        const figure = document.querySelector(".lightbox__figure");
-        if (this.currentMedia.image ) {
-          figure.innerHTML = this.renderImage()
-        } else {
-          figure.innerHTML = this.renderVideo()
-        }
-      }
+      this.getToPreviousMedia();
     });
 
     // Handle next arrow
     const lightboxNextArrow = document.querySelector(".lightbox__next-arrow");
     lightboxNextArrow.addEventListener("click", () => {
-      const currentIndex = this.medias.indexOf(this.currentMedia);
-      const nextMedia = this.medias[currentIndex + 1];
-      if (nextMedia) {
-        this.currentMedia = nextMedia;
-        // this.currentMedia.image ? this.renderImage() : this.renderVideo();
-        const figure = document.querySelector(".lightbox__figure");
-        if (this.currentMedia.image ) {
-          figure.innerHTML = this.renderImage()
-        } else {
-          figure.innerHTML = this.renderVideo()
-        }
-      }
+      this.getToNextMedia();
     });
 
     // Handle keyboard events
@@ -119,30 +127,10 @@ export class Lightbox {
         }
 
         if (e.key === "ArrowLeft") {
-          const currentIndex = this.medias.indexOf(this.currentMedia);
-          const previousMedia = this.medias[currentIndex - 1];
-          if (previousMedia) {
-            this.currentMedia = previousMedia;
-            const figure = document.querySelector(".lightbox__figure");
-            if (this.currentMedia.image ) {
-              figure.innerHTML = this.renderImage()
-            } else {
-              figure.innerHTML = this.renderVideo()
-            }
-          }
+          this.getToPreviousMedia();
         }
         if (e.key === "ArrowRight") {
-          const currentIndex = this.medias.indexOf(this.currentMedia);
-          const nextMedia = this.medias[currentIndex + 1];
-          if (nextMedia) {
-            this.currentMedia = nextMedia;
-            const figure = document.querySelector(".lightbox__figure");
-            if (this.currentMedia.image ) {
-              figure.innerHTML = this.renderImage()
-            } else {
-              figure.innerHTML = this.renderVideo()
-            }
-          }
+          this.getToNextMedia();
         }
       }
     });
