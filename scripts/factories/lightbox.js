@@ -48,6 +48,14 @@ export class Lightbox {
     }
   }
 
+  closeLightbox() {
+    const lightbox = document.querySelector(".lightbox");
+    lightbox.classList.remove("lightbox__active");
+    // Get focus back on media figure
+    const mediaFigure = document.querySelector("#media-figure__" + this.currentMedia.id);
+    mediaFigure.focus();
+  }
+
   render() {
     const lightbox = document.querySelector(".lightbox");
     // Render HTMl conditionally if image or video
@@ -100,7 +108,7 @@ export class Lightbox {
 
     // Handle close button
     lightboxCloseButton.addEventListener("click", () => {
-      lightbox.classList.remove("lightbox__active");
+      this.closeLightbox();
     });
 
     // Handle previous arrow
@@ -123,7 +131,7 @@ export class Lightbox {
       // Check if lightbox is open
       if (isLightboxOpen) {
         if (e.key === "Escape") {
-          lightbox.classList.remove("lightbox__active");
+          this.closeLightbox();
         }
         if (e.key === "ArrowLeft") {
           this.getToPreviousMedia();
