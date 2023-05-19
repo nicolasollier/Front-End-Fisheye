@@ -7,14 +7,14 @@ export class Lightbox {
   renderImage() {
     return `<div class="lightbox__figure-media-type__image">
               <img class="lightbox__image" src="${`assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.image}`}"></img>
-              <figcaption class="lightbox__title-image"></figcaption>
+              <figcaption class="lightbox__title-image">${this.currentMedia.title}</figcaption>
             </div>`
   }
 
   renderVideo() {
     return `<div class="lightbox__figure-media-type__video">
               <video src="${`assets/photographers/${this.currentMedia.photographerId}/${this.currentMedia.video}`}" class="lightbox__video" controls></video>
-              <figcaption class="lightbox__title-video"></figcaption>
+              <figcaption class="lightbox__title-video">${this.currentMedia.title}</figcaption>
             </div>`
   }
 

@@ -11,15 +11,10 @@ export async function getPhotographers() {
 }
 
 export async function getPhotographer(id) {
-  let photographer = {};
+    const res = await fetch("data/photographers.json");
+    const data = await res.json();
 
-  await fetch("data/photographers.json")
-    .then((response) => response.json())
-    .then((data) => {
-      photographer = data.photographers.find((photographer) => photographer.id == id);
-    });
-
-  return photographer;
+    return data.photographers.find((photographer) => photographer.id == id)
 }
 
 export async function getPhotographerMedias(id) {

@@ -25,8 +25,16 @@ let id = parseInt(params.get("id"));
 
 // Init photographer page
 async function init() {
-  const photographer = await getPhotographer(id);
+  let photographer = {};
+  try {
+    photographer = await getPhotographer(id);
+  } catch (error) {
+    document.querySelector("#main").innerHTML = "Une erreur s'est produite veuillez recharger la page ou contacter le support";
+  }
+  
+  //Create media factory and for each media in medias use factory instead of this
   const medias = await getPhotographerMedias(id);
+
   let photographerTotalLikes = medias.reduce(
     (acc, media) => (acc += media.likes),
     0
