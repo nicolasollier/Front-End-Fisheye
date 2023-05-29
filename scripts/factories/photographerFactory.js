@@ -52,7 +52,7 @@ export class MediaFactory {
 
       mediaButton.classList.add("unstyled");
       mediaImage.src = `assets/photographers/${this.media.photographerId}/${this.media.image}`;
-      mediaImage.alt = this.media.alt;
+      mediaImage.alt = this.media.title;
       mediaImage.classList.add("photograph-medias__media__image");
 
       mediaButton.addEventListener("click", () => {
@@ -69,7 +69,7 @@ export class MediaFactory {
 
       mediaButton.classList.add("unstyled");
       mediaVideo.src = `assets/photographers/${this.media.photographerId}/${this.media.video}`;
-      mediaVideo.alt = this.media.alt;
+      mediaVideo.alt = this.media.title;
       mediaVideo.classList.add("photograph-medias__media__video");
 
       mediaButton.addEventListener("click", () => {
