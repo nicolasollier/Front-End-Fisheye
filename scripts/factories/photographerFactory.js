@@ -69,7 +69,7 @@ export class MediaFactory {
 
       mediaButton.classList.add("unstyled");
       mediaVideo.src = `assets/photographers/${this.media.photographerId}/${this.media.video}`;
-      mediaVideo.alt = this.media.title;
+      mediaButton.title = this.media.title;
       mediaVideo.classList.add("photograph-medias__media__video");
 
       mediaButton.addEventListener("click", () => {
